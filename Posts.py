@@ -57,9 +57,27 @@ class Posts():
             print("-------------------------------")
             print("Author: " + post.get('author'))
             print("Text: " + post.get('text'))
-            # print(post.get('tags'))
             tags = post.get("tags")
-            # tags.append(post.get('tags'))
+            for tag in tags:
+                print("Tag: " + tag)
+            print("-------------------------------")
+    
+    @staticmethod
+    def findByTag():
+        tags = []
+        while 1:
+            tag = input("Enter the tag to search: ")
+            tags.append(tag)
+            if (input("Add another tag to search? y/n: ") == "n"):
+                break
+        db = connectMongo()
+        testCollection = getCollection('test-collection', db)
+        posts = testCollection.find({"tags": {"$all": tags}})
+        for post in posts:
+            print("-------------------------------")
+            print("Author: " + post.get('author'))
+            print("Text: " + post.get('text'))
+            tags = post.get("tags")
             for tag in tags:
                 print("Tag: " + tag)
             print("-------------------------------")
