@@ -38,3 +38,13 @@ class Posts():
         testCollection = getCollection('test-collection', db)
         testCollection.delete_many({"author": author})
         print("The post of " + author + " were deleted succesfully")
+    
+    @staticmethod
+    def read():
+        author = input("Enter the name of the author: ")
+        db = connectMongo()
+        testCollection = getCollection('test-collection', db)
+        posts = testCollection.find({"author": author})
+        for post in posts:
+            print("Author: " + post.get('author'))
+            print("Text: " + post.get('text'))
