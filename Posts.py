@@ -29,3 +29,12 @@ class Posts():
             {"$set": {"text": text}}
         )
         print("Post updated succesfully")
+
+    @staticmethod
+    def delete():
+        author = input("Enter the name of the author: ")
+        #Conection to mongo
+        db = connectMongo()
+        testCollection = getCollection('test-collection', db)
+        testCollection.delete_many({"author": author})
+        print("The post of " + author + " were deleted succesfully")
